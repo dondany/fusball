@@ -27,68 +27,60 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .brand .title{font-weight:700;font-size:18px;line-height:1}
   .brand .sub{font-size:13px;color:var(--ink2);margin-top:2px}
-  #steps{list-style:none;margin:0;padding:6px;display:flex;gap:4px;background:var(--cream);border:3px solid var(--ink);border-radius:999px;box-shadow:var(--pop)}
-  #steps li{padding:5px 12px;border-radius:999px;font-weight:600;font-size:14px;color:var(--ink2);white-space:nowrap}
-  #steps li .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--cream2);margin-right:6px;font-size:12px}
-  #steps li.active{background:var(--tomato);color:#fff}
-  #steps li.active .n{background:#fff;color:var(--tomato)}
-  #steps li.done{color:var(--teal)}
-  #steps li.done .n{background:var(--teal);color:#fff}
+  #hint{background:var(--cream);border:3px solid var(--ink);border-radius:999px;box-shadow:var(--pop);padding:8px 18px;font-weight:600;font-size:16px;max-width:min(560px,50vw);text-align:center;pointer-events:auto}
+  #hint:empty{visibility:hidden}
+  #hint b{color:var(--tomato)}
+  #hint.bump{animation:bump .4s}
+  @keyframes bump{35%{transform:scale(1.07)}}
   #history{display:flex;gap:4px;background:var(--cream);border:3px solid var(--ink);border-radius:16px;padding:6px 10px;box-shadow:var(--pop);min-height:44px;align-items:center;font-size:18px;max-width:260px;flex-wrap:wrap}
   #history .empty{font-size:13px;color:var(--ink2)}
 
-  /* ---------- panel ---------- */
-  #panel{position:fixed;right:16px;top:84px;width:340px;max-height:calc(100% - 100px);overflow:auto;background:var(--cream);border:3px solid var(--ink);border-radius:22px;box-shadow:var(--shadow);padding:16px 18px 18px;z-index:6;transition:transform .35s cubic-bezier(.2,1.4,.4,1),opacity .25s}
-  #panel.hidden{transform:translateX(120%);opacity:0;pointer-events:none}
-  #panel .kicker{font-size:13px;font-weight:600;color:var(--tomato);text-transform:uppercase;letter-spacing:.06em}
-  #panel h2{margin:2px 0 6px;font-size:24px;line-height:1.1}
-  #panel p{margin:6px 0;line-height:1.35}
-  .hint{font-size:14px;color:var(--ink2)}
-  .gold{background:#ffd54a;padding:0 5px;border-radius:6px;color:var(--ink);font-weight:600}
-  .sl{margin:10px 0 4px}
-  .sl-top{display:flex;justify-content:space-between;font-weight:600;font-size:15px}
-  .sl-top b{color:var(--tomato)}
-  .sl-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--ink2);margin-top:-2px}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;background:var(--cream2);border:2px solid var(--ink);border-radius:999px;margin:8px 0 6px;outline:none}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--mustard);border:3px solid var(--ink);box-shadow:0 3px 0 rgba(74,52,38,.3);cursor:grab}
-  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--mustard);border:3px solid var(--ink);cursor:grab}
-  .row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-  .btn{flex:1;border:3px solid var(--ink);background:#fff;color:var(--ink);font-weight:600;font-size:16px;padding:10px 12px;border-radius:14px;box-shadow:0 4px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s;white-space:nowrap}
+  /* ---------- dock ---------- */
+  #dock{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:var(--cream);border:3px solid var(--ink);border-radius:22px;box-shadow:var(--shadow);padding:8px;z-index:6;max-width:calc(100% - 160px)}
+  #dock:empty{display:none}
+  .rp{display:flex;align-items:center;gap:8px;border:2px solid var(--ink);background:#fff;border-radius:16px;padding:5px 12px 5px 5px;cursor:pointer;color:var(--ink);text-align:left;transition:transform .12s}
+  .rp:hover{transform:translateY(-2px)}
+  .rp.sel{box-shadow:0 0 0 3px var(--tomato);background:#fff1e6}
+  .rp .av{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-size:13px;font-weight:700;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.3)}
+  .rp .nm{display:block;font-weight:700;font-size:15px;line-height:1.1}
+  .rp .st{display:block;font-size:11px;color:var(--ink2);line-height:1.2;white-space:nowrap}
+  .rp.done .nm{color:var(--teal)}
+  .dsep{width:2px;align-self:stretch;background:var(--cream2);margin:0 2px}
+  .dock-msg{font-weight:600;font-size:15px;padding:0 8px;max-width:440px}
+  .dock-msg small{display:block;font-weight:500;color:var(--ink2);font-size:13px}
+  .btn{border:3px solid var(--ink);background:#fff;color:var(--ink);font-weight:600;font-size:16px;padding:10px 16px;border-radius:14px;box-shadow:0 4px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s;white-space:nowrap}
   .btn:hover{transform:translateY(-1px)}
   .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
   .btn.primary{background:var(--tomato);color:#fff}
   .btn.go{background:var(--teal);color:#fff}
-  .btn.small{flex:0 0 auto;font-size:14px;padding:6px 10px;border-radius:12px;box-shadow:0 3px 0 var(--ink)}
+  .btn.small{font-size:14px;padding:6px 10px;border-radius:12px;box-shadow:0 3px 0 var(--ink)}
   .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
   .btn.pulse{animation:pulse 1.1s ease-in-out infinite}
-  @keyframes pulse{50%{transform:scale(1.04)}}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-  .chip{border:2px solid var(--ink);background:#fff;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}
-  .chip:hover{background:var(--cream2)}
-  .chip.on{background:var(--ink);color:#fff}
-  .players{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-  .pl{display:flex;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:14px;padding:6px 10px;background:#fff;cursor:pointer;text-align:left}
-  .pl.sel{background:var(--cream2);box-shadow:inset 0 0 0 2px var(--tomato)}
-  .pl .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);flex:0 0 auto}
-  .pl .nm{font-weight:600;font-size:15px}
-  .pl .bl{font-size:12px;color:var(--ink2)}
-  .pl .st{margin-left:auto;font-size:11px;color:var(--ink2);text-align:right;line-height:1.3;white-space:nowrap}
-  .pips{letter-spacing:1px;color:var(--tomato)}
-  .pl .ok{font-size:16px}
-  .seg{display:flex;border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin:6px 0 2px}
-  .seg button{flex:1;border:0;background:#fff;padding:7px 4px;font-weight:600;font-size:13px;cursor:pointer;color:var(--ink);border-right:2px solid var(--ink)}
-  .seg button:last-child{border-right:0}
-  .seg button.on{background:var(--mustard)}
-  .lab{font-weight:600;font-size:14px;margin-top:10px}
-  #cpuList{list-style:none;padding:0;margin:10px 0}
-  #cpuList li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:2px dashed var(--cream2);animation:slidein .35s cubic-bezier(.2,1.4,.4,1)}
-  #cpuList li .who{font-weight:600}
-  @keyframes slidein{from{transform:translateX(20px);opacity:0}}
-  .result-emoji{font-size:54px;line-height:1;margin:4px 0}
+  @keyframes pulse{50%{transform:scale(1.06)}}
   .thinking{display:inline-flex;gap:4px;margin-left:6px}
   .thinking i{width:7px;height:7px;background:var(--ink2);border-radius:50%;animation:blink 1s infinite}
   .thinking i:nth-child(2){animation-delay:.2s}.thinking i:nth-child(3){animation-delay:.4s}
   @keyframes blink{50%{opacity:.2}}
+
+  /* ---------- radial choice wheel ---------- */
+  #radial{position:fixed;left:0;top:0;width:0;height:0;z-index:8;display:none}
+  #radial.open{display:block}
+  .rbg{position:absolute;left:-150px;top:-150px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,246,230,.55) 45%,rgba(255,246,230,0) 70%);pointer-events:none;animation:fadein .2s}
+  @keyframes fadein{from{opacity:0}}
+  .rcenter{position:absolute;left:-46px;top:-46px;width:92px;height:92px;border-radius:50%;background:var(--ink);color:#fff;border:3px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.25);animation:cpop .25s cubic-bezier(.2,1.6,.4,1)}
+  .rcenter .t{font-weight:700;font-size:15px;line-height:1.05}
+  .rcenter .s{font-size:11px;opacity:.85;margin-top:3px}
+  .rcenter .x{font-size:10px;opacity:.6;margin-top:2px}
+  .rcenter:hover{background:#6b4c39}
+  @keyframes cpop{from{transform:scale(.3)}}
+  .ropt{position:absolute;left:-40px;top:-40px;width:80px;height:80px;border-radius:50%;background:#fff;border:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);padding:0;transform:translate(var(--x),var(--y));animation:opop .32s cubic-bezier(.2,1.5,.4,1) both;transition:background .1s}
+  .ropt .i{font-size:24px;line-height:1}
+  .ropt .l{font-size:11px;font-weight:700;margin-top:3px;line-height:1.05;max-width:70px}
+  .ropt .e{font-size:10px;font-weight:600;color:var(--ink2);margin-top:1px}
+  .ropt:hover{background:var(--mustard)}
+  .ropt.cur{background:#fff1c9}
+  .ropt.best::after{content:"★";position:absolute;top:-8px;right:-6px;width:24px;height:24px;border-radius:50%;background:var(--mustard);border:2px solid var(--ink);font-size:13px;display:grid;place-items:center}
+  @keyframes opop{from{transform:translate(0,0) scale(.2);opacity:0}}
 
   /* ---------- labels / bubbles ---------- */
   #labels{position:fixed;inset:0;pointer-events:none;z-index:3;overflow:hidden}
@@ -97,6 +89,8 @@
   .tag.att{background:#ffe1d9}
   .tag.def{background:#d6f1ee}
   .tag.sel{background:var(--tomato);color:#fff;font-size:14px;padding:3px 10px}
+  .tag.pick{pointer-events:auto;cursor:pointer}
+  .tag.pick:hover{transform:scale(1.08)}
   .tick{font-size:11px;font-weight:700;color:var(--ink);background:rgba(255,246,230,.85);padding:0 5px;border-radius:6px}
   .eta{font-size:12px;font-weight:700;padding:1px 7px;border-radius:8px;border:2px solid var(--ink);background:#fff}
   .bubble{font-size:16px;font-weight:700;background:#fff;border:3px solid var(--ink);border-radius:16px;padding:4px 12px;animation:bub .3s cubic-bezier(.2,1.8,.4,1);box-shadow:0 3px 0 rgba(74,52,38,.25)}
@@ -116,13 +110,12 @@
   #banner.goal .big{color:var(--mustard)}
   #banner.bad .big{color:#9fd8d2}
   @keyframes bannerpop{0%{transform:scale(.2) rotate(-8deg)}60%{transform:scale(1.1) rotate(2deg)}100%{transform:scale(1)}}
-  #replayTag{position:fixed;left:18px;bottom:78px;z-index:6;font-weight:700;color:#fff;background:var(--tomato);border:3px solid var(--ink);border-radius:10px;padding:3px 10px;display:none;animation:blink 1.2s infinite}
+  #replayTag{position:fixed;left:18px;top:84px;z-index:6;font-weight:700;color:#fff;background:var(--tomato);border:3px solid var(--ink);border-radius:10px;padding:3px 10px;display:none;animation:blink 1.2s infinite}
 
   /* ---------- toolbar ---------- */
   #toolbar{position:fixed;left:16px;bottom:16px;display:flex;gap:8px;z-index:6}
   #toolbar button{width:48px;height:48px;border-radius:14px;border:3px solid var(--ink);background:var(--cream);font-size:22px;cursor:pointer;box-shadow:0 4px 0 var(--ink)}
   #toolbar button:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
-  #helpTip{position:fixed;left:136px;bottom:22px;z-index:5;font-size:13px;color:var(--ink);background:rgba(255,246,230,.85);border-radius:10px;padding:5px 10px}
 
   #loading{position:fixed;inset:0;display:grid;place-items:center;background:#f9d3ad;z-index:20;font-size:26px;font-weight:600;transition:opacity .6s}
   #loading.gone{opacity:0;pointer-events:none}
@@ -130,18 +123,17 @@
   @keyframes bounce{to{transform:translateY(-14px)}}
 
   @media (max-width:760px){
-    #steps{display:none}
+    #topbar{flex-wrap:wrap;left:8px;right:8px;top:8px}
+    #hint{order:3;flex-basis:100%;max-width:none;font-size:14px;padding:6px 12px}
     #history{max-width:150px;font-size:15px;min-height:38px}
     .brand .title{font-size:16px}
-    #panel{left:8px;right:8px;width:auto;top:auto;bottom:8px;max-height:48vh;padding:12px 14px}
-    #panel.hidden{transform:translateY(120%)}
-    #panel h2{font-size:20px}
-    .pl .bl{display:none}
-    .seg button{font-size:12px;padding:6px 2px}
-    #toolbar{bottom:auto;top:76px;left:8px}
+    #dock{left:8px;right:8px;bottom:8px;transform:none;max-width:none;flex-wrap:wrap;justify-content:center;padding:6px}
+    .rp{padding:4px 8px 4px 4px}
+    .rp .st{display:none}
+    .dsep{display:none}
+    #toolbar{left:auto;right:8px;bottom:auto;top:118px;flex-direction:column}
     #toolbar button{width:40px;height:40px;font-size:18px}
-    #helpTip{display:none}
-    #replayTag{bottom:auto;top:130px;left:8px}
+    #replayTag{top:118px;left:8px}
   }
 </style>
 <script type="importmap">
@@ -156,22 +148,17 @@
 <div id="labels"></div>
 <header id="topbar">
   <div class="brand"><span class="logo">⚽</span><div><div class="title">Cosy Corners</div><div class="sub" id="roundInfo">Corner 1 · 0 goals</div></div></div>
-  <ol id="steps">
-    <li data-s="aim"><span class="n">1</span>Delivery</li>
-    <li data-s="runs"><span class="n">2</span>Runs</li>
-    <li data-s="cpu"><span class="n">3</span>Defence</li>
-    <li data-s="sim"><span class="n">4</span>Kick!</li>
-  </ol>
+  <div id="hint"></div>
   <div id="history"><span class="empty">No corners yet</span></div>
 </header>
-<aside id="panel" class="hidden"></aside>
+<div id="dock"></div>
+<div id="radial"></div>
 <div id="banner"><div class="big"></div><div class="small"></div></div>
 <div id="replayTag">● REPLAY</div>
 <div id="toolbar">
-  <button id="camBtn" title="Switch camera">🎥</button>
+  <button id="camBtn" title="Switch camera (drag to orbit, scroll to zoom)">🎥</button>
   <button id="muteBtn" title="Sound on/off">🔊</button>
 </div>
-<div id="helpTip">Drag to look around · scroll to zoom · right-drag to pan</div>
 <div id="loading"><div><span>⚽</span> Rolling out the pitch…</div></div>
 <pre id="out" style="display:none"></pre>
 
@@ -482,7 +469,7 @@ function updateCrowd(t,dt){
 //  Characters
 // =====================================================================
 const CAST={
-  kicker:{name:'Curly Sue',number:11,team:'att',role:'kicker',skin:'#f1c9a0',hair:'curly',hairColor:'#c9582c',scale:0.95,speed:6,reachH:2.4},
+  kicker:{name:'Curly Sue',number:11,team:'att',role:'kicker',color:'#ff6f91',blurb:'Corner specialist. Wicked curl.',skin:'#f1c9a0',hair:'curly',hairColor:'#c9582c',scale:0.95,speed:6,reachH:2.4},
   att:[
     {name:'Big Tony',number:9,hair:'bald',skin:'#c68a5e',scale:1.13,speed:5.9,reachH:2.85,color:'#ff8a3d',blurb:'Enormous. Slow. Forehead of destiny.'},
     {name:"Lil' Pip",number:7,hair:'bowl',hairColor:'#e0843a',skin:'#f6d2ae',scale:0.84,speed:7.4,reachH:2.3,color:'#ffd23f',blurb:'Tiny, zippy, loves a near-post dart.'},
@@ -710,7 +697,7 @@ const KICKER_START={x:BALL_SPOT.x+2.2,z:BALL_SPOT.z+1.0};
 // =====================================================================
 //  Game state
 // =====================================================================
-const Game={phase:'boot',round:1,goals:0,history:[],plan:null,starts:null,sel:0,sim:null,replay:false,timers:[],camMode:0,lastResult:null};
+const Game={phase:'boot',round:1,goals:0,history:[],plan:null,starts:null,selActor:null,planned:new Set(),draft:null,sim:null,replay:false,timers:[],camMode:0,revealed:0};
 
 function makeStarts(r){
   const j=s=>gauss(r)*s;
@@ -1115,8 +1102,10 @@ function dotted(points,color,opacity=0.95){
 function runLength(a,pl){ let L=0,p={x:a.pos.x,z:a.pos.z}; for(const w of pl.wps){ L+=hyp(p.x,p.z,w.x,w.z); p=w; } return L; }
 function buildPlanGfx(){
   clearPlanGfx();
+  const dr=Game.draft;
+  if(dr && dr.actor!==kicker){ const mat=dotted([{x:dr.actor.pos.x,z:dr.actor.pos.z},dr.point],actorColor(dr.actor),0.6); }
   attackers.forEach((a,i)=>{
-    const pl=Game.plan.att[i]; if(!pl.wps.length) return;
+    const pl=Game.plan.att[i]; if(!pl.wps.length || (dr&&dr.actor===a)) return;
     const pts=[{x:a.pos.x,z:a.pos.z},...pl.wps];
     const mat=dotted(pts,a.cfg.color);
     const end=pl.wps[pl.wps.length-1];
@@ -1155,14 +1144,18 @@ function setView(i){ Game.camMode=i; flyTo(VIEWS[i]); }
 // =====================================================================
 //  UI
 // =====================================================================
-const panel=$('#panel');
-function setStep(s){ const order=['aim','runs','cpu','sim']; document.querySelectorAll('#steps li').forEach(li=>{ li.classList.toggle('active',li.dataset.s===s); li.classList.toggle('done',order.indexOf(li.dataset.s)<order.indexOf(s)); }); }
+const dock=$('#dock'), hintEl=$('#hint'), radial=$('#radial');
+const OWN=[kicker,...attackers];
+const shortName=a=>a===kicker?'Sue':a.name.split(' ').pop();
+const actorColor=a=>a.cfg.color||'#e8574a';
+function setHint(html){ if(hintEl.innerHTML===html) return; hintEl.innerHTML=html; hintEl.classList.remove('bump'); void hintEl.offsetWidth; hintEl.classList.add('bump'); }
 function updateScore(){ $('#roundInfo').textContent=`Corner ${Game.round} · ${Game.goals} goal${Game.goals===1?'':'s'}`; const h=$('#history'); h.innerHTML=Game.history.length?Game.history.slice(-10).map(x=>`<span title="${x.t}">${x.e}</span>`).join(''):'<span class="empty">No corners yet</span>'; }
 function showBanner(big,small,cls=''){ const b=$('#banner'); b.className=''; void b.offsetWidth; b.className='show '+cls; b.querySelector('.big').textContent=big; b.querySelector('.small').textContent=small; b.querySelector('.small').style.display=small?'':'none'; }
 function hideBanner(){ $('#banner').className=''; }
 function clearTimers(){ Game.timers.forEach(clearTimeout); Game.timers=[]; }
 const later=(ms,f)=>Game.timers.push(setTimeout(f,ms));
 
+// used by the autotest's "smart" plans
 const PRESETS=[
   {label:'Near post',x:4.2,z:3.2,loft:20,curl:0.55},
   {label:'Six-yard box',x:0.5,z:5,loft:24,curl:0.45},
@@ -1171,64 +1164,133 @@ const PRESETS=[
   {label:'Edge of box',x:1,z:15.5,loft:22,curl:-0.2},
 ];
 const loftWord=l=>l<14?'Driven':l<22?'Whipped':l<30?'Lofted':'Floaty';
-const curlWord=c=>Math.abs(c)<0.08?'Straight':(c>0?'In-swinger ':'Out-swinger ')+Math.round(Math.abs(c)*100)+'%';
-function slider(id,label,min,max,step,l,r){ return `<div class="sl"><div class="sl-top"><span>${label}</span><b id="v_${id}"></b></div><input type="range" id="s_${id}" min="${min}" max="${max}" step="${step}"><div class="sl-ends"><span>${l}</span><span>${r}</span></div></div>`; }
+const curlWord=c=>c>0.1?'in-swing':c<-0.1?'out-swing':'straight';
 
-function renderAimPanel(){
-  panel.classList.remove('hidden');
-  panel.innerHTML=`
-    <div class="kicker">Step 1 · Corner taker: Curly Sue</div>
-    <h2>Plan the delivery</h2>
-    <p class="hint">👆 Click anywhere on the pitch and Sue will aim there. <span class="gold">Gold dots</span> = ball at header height, 🎯 = where it drops to head height.</p>
-    <div class="chips">${PRESETS.map((p,i)=>`<button class="chip" data-p="${i}">${p.label}</button>`).join('')}</div>
-    ${slider('dir','Direction',-35,35,0.5,'← hug the goal line','out to the box →')}
-    ${slider('power','Power',0,1,0.01,'gentle','thumped')}
-    ${slider('loft','Height',6,42,0.5,'driven','floaty')}
-    ${slider('curl','Curl',-1,1,0.02,'← out-swinger','in-swinger →')}
-    <div class="row"><button class="btn primary" id="toRuns">Lock it in →</button></div>`;
-  const k=Game.plan.kick;
-  const sync=()=>{ $('#s_dir').value=k.dir; $('#s_power').value=k.power; $('#s_loft').value=k.loft; $('#s_curl').value=k.curl;
-    $('#v_dir').textContent=(k.dir>0?'+':'')+k.dir.toFixed(0)+'°'; $('#v_power').textContent=Math.round(k.power*100)+'%'; $('#v_loft').textContent=loftWord(k.loft); $('#v_curl').textContent=curlWord(k.curl); };
-  Game.syncAim=sync; sync();
-  for(const id of ['dir','power','loft','curl']) $('#s_'+id).addEventListener('input',e=>{ k[id]=parseFloat(e.target.value); sync(); updateTraj(); });
-  panel.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{ const p=PRESETS[+b.dataset.p]; k.loft=p.loft; k.curl=p.curl; solveAim(k,p.x,p.z); sync(); updateTraj(); Sfx.pop(); });
-  $('#toRuns').onclick=()=>{ Sfx.pop(); goRuns(); };
-}
+// ---------- radial choice wheel ----------
+const LOFTS=[{i:'🚄',l:'Driven',v:11},{i:'💨',l:'Whipped',v:18},{i:'🌈',l:'Lofted',v:26},{i:'🎈',l:'Floaty',v:35}];
+const CURLS=[{i:'⤴️',l:'Out-swing',v:-0.5},{i:'⬆️',l:'Straight',v:0},{i:'⤵️',l:'In-swing',v:0.55}];
+const ROLES=[{i:'⚡',l:'Attack ball',v:'attack'},{i:'🧱',l:'Block',v:'screen'}];
+function etaFor(d,ti){ const a=d.actor; return TIMINGS[ti].d+hyp(a.pos.x,a.pos.z,d.point.x,d.point.z)/a.speed+0.3; }
+const WHEELS={
+  kicker:[
+    {title:'Height',key:'loft',opts:()=>LOFTS},
+    {title:'Curl',key:'curl',opts:()=>CURLS},
+  ],
+  att:[
+    {title:'Job',key:'role',opts:()=>ROLES},
+    {title:'Go when?',key:'timing',sub:()=>Game.delivery?`🎯 ball ${Game.delivery.t.toFixed(1)}s`:'',
+     opts:d=>TIMINGS.map((t,i)=>({i:['🐇','⚽','🐢'][i],l:t.label,v:i,e:'⏱ '+etaFor(d,i).toFixed(1)+'s'}))},
+  ],
+};
+const wheelFor=a=>WHEELS[a===kicker?'kicker':'att'];
+const pendingRing=new THREE.Mesh(new THREE.RingGeometry(0.55,0.8,32).rotateX(-Math.PI/2),new THREE.MeshBasicMaterial({color:'#ffffff',transparent:true,opacity:0.95,depthWrite:false}));
+pendingRing.position.y=0.05; pendingRing.visible=false; scene.add(pendingRing);
 
-function pips(v,lo,hi){ const n=Math.round(clamp((v-lo)/(hi-lo),0,1)*4)+1; return '●'.repeat(n)+'<span style="opacity:.25">'+'●'.repeat(5-n)+'</span>'; }
-function renderRunsPanel(){
-  const i=Game.sel, a=attackers[i], pl=Game.plan.att[i];
-  panel.innerHTML=`
-    <div class="kicker">Step 2 · Runs in the box</div>
-    <h2>Where should they go?</h2>
-    <div class="players">${attackers.map((p,j)=>`<button class="pl ${j===i?'sel':''}" data-a="${j}">
-      <span class="dot" style="background:${p.cfg.color}"></span>
-      <span><div class="nm">#${p.cfg.number} ${p.name} <span class="ok">${Game.plan.att[j].wps.length?'✅':''}</span></div><div class="bl">${p.cfg.blurb}</div></span>
-      <span class="st">Speed <span class="pips">${pips(p.speed,5.6,7.4)}</span><br>Leap <span class="pips">${pips(p.reachH,2.3,2.85)}</span></span></button>`).join('')}</div>
-    <p class="hint">👆 Click the pitch to set <b>${a.name}</b>'s run (up to 2 points — a 3rd click starts over). Match his ⏱ to the ball's times.</p>
-    <div class="lab">Job</div>
-    <div class="seg" id="role"><button data-v="attack" class="${pl.role==='attack'?'on':''}">⚡ Attack the ball</button><button data-v="screen" class="${pl.role==='screen'?'on':''}">🧱 Block a defender</button></div>
-    <div class="lab">Start running</div>
-    <div class="seg" id="timing">${TIMINGS.map((t,j)=>`<button data-v="${j}" class="${pl.timing===j?'on':''}">${t.label}</button>`).join('')}</div>
-    <div class="row"><button class="btn small" id="clearRun">✖ Clear run</button><button class="btn small" id="backAim">← Delivery</button></div>
-    <div class="row"><button class="btn primary" id="nextAtt">${i<2?`Next: ${attackers[i+1].name} →`:'Done — CPU\'s turn →'}</button></div>`;
-  panel.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ Game.sel=+b.dataset.a; Sfx.pop(); refreshRuns(); });
-  panel.querySelectorAll('#role button').forEach(b=>b.onclick=()=>{ pl.role=b.dataset.v; Sfx.pop(); refreshRuns(); });
-  panel.querySelectorAll('#timing button').forEach(b=>b.onclick=()=>{ pl.timing=+b.dataset.v; Sfx.pop(); refreshRuns(); });
-  $('#clearRun').onclick=()=>{ pl.wps=[]; refreshRuns(); };
-  $('#backAim').onclick=()=>{ Sfx.pop(); goAim(false); };
-  $('#nextAtt').onclick=()=>{ Sfx.pop(); if(Game.sel<2){ Game.sel++; refreshRuns(); } else goCpu(); };
+function draftKick(over={}){ const d=Game.draft; const k={...d.backup,...d.vals,...over}; solveAim(k,d.point.x,d.point.z); return k; }
+function previewKick(over){ Object.assign(Game.plan.kick,draftKick(over)); updateTraj(); }
+function currentVal(d,key){
+  if(d.actor===kicker){ const list=key==='loft'?LOFTS:CURLS, cur=d.backup[key]; return list.reduce((b,o)=>Math.abs(o.v-cur)<Math.abs(b.v-cur)?o:b).v; }
+  if(!Game.planned.has(d.actor)) return undefined;
+  return Game.plan.att[attackers.indexOf(d.actor)][key];
 }
-function refreshRuns(){ renderRunsPanel(); buildPlanGfx(); updateTags(); }
+function openWheel(actor,point,sx,sy){
+  Game.draft={actor,point,step:0,vals:{},backup:{...Game.plan.kick},sx,sy};
+  controls.enabled=false; hoverRing.visible=false;
+  pendingRing.visible=true; pendingRing.position.set(point.x,0.05,point.z); pendingRing.material.color.set(actorColor(actor));
+  if(actor===kicker) previewKick();
+  buildPlanGfx(); renderWheel(); updateHint(); Sfx.pop();
+}
+function renderWheel(){
+  const d=Game.draft, steps=wheelFor(d.actor), st=steps[d.step], opts=st.opts(d);
+  const n=opts.length, R=n>3?96:88, a0=n===2?Math.PI:-Math.PI/2;
+  let best=-1;
+  if(st.key==='timing' && d.vals.role==='attack' && Game.delivery){ let bd=1e9; opts.forEach((o,i)=>{ const diff=Math.abs(etaFor(d,i)-Game.delivery.t); if(diff<bd){bd=diff;best=i;} }); }
+  const cur=currentVal(d,st.key);
+  const dots=steps.map((_,i)=>i<=d.step?'●':'○').join(' ');
+  radial.innerHTML=`<div class="rbg"></div><button class="rcenter" title="Cancel"><span class="t">${st.title}</span><span class="s">${st.sub?st.sub(d):dots}</span><span class="x">✕ cancel</span></button>`+
+    opts.map((o,i)=>{ const a=a0+i*2*Math.PI/n; return `<button class="ropt ${i===best?'best':''} ${o.v===cur?'cur':''}" data-i="${i}" style="--x:${(Math.cos(a)*R).toFixed(1)}px;--y:${(Math.sin(a)*R).toFixed(1)}px;animation-delay:${i*40}ms"><span class="i">${o.i}</span><span class="l">${o.l}</span>${o.e?`<span class="e">${o.e}</span>`:''}</button>`; }).join('');
+  const m=R+48, x=clamp(d.sx,m,innerWidth-m), y=clamp(d.sy,m+56,innerHeight-m-80);
+  radial.style.transform=`translate(${x}px,${y}px)`; radial.classList.add('open');
+  radial.querySelector('.rcenter').onclick=()=>{ Sfx.pop(); cancelWheel(); };
+  radial.querySelectorAll('.ropt').forEach(b=>{ const o=opts[+b.dataset.i];
+    b.onclick=()=>chooseOption(st,o);
+    if(d.actor===kicker){ b.onpointerenter=()=>previewKick({[st.key]:o.v}); b.onpointerleave=()=>{ if(Game.draft) previewKick(); }; }
+  });
+}
+function chooseOption(st,o){
+  Sfx.pop(); const d=Game.draft; d.vals[st.key]=o.v; d.step++;
+  if(d.step<wheelFor(d.actor).length){ if(d.actor===kicker) previewKick(); renderWheel(); updateHint(); return; }
+  commitDraft();
+}
+function commitDraft(){
+  const d=Game.draft, a=d.actor;
+  if(a===kicker){ Object.assign(Game.plan.kick,draftKick()); updateTraj(); }
+  else Game.plan.att[attackers.indexOf(a)]={wps:[{x:d.point.x,z:d.point.z}],role:d.vals.role,timing:d.vals.timing};
+  Game.planned.add(a); closeWheel();
+  say(a,pick(Math.random,a===kicker?['On it!','Lovely.','Watch this.']:['Got it, gaffer!','On my way!','Leave it to me.']),'att',1.3);
+  select(OWN.find(p=>!Game.planned.has(p))||null);
+}
+function cancelWheel(){ const d=Game.draft; if(!d) return; if(d.actor===kicker){ Object.assign(Game.plan.kick,d.backup); updateTraj(); } closeWheel(); }
+function closeWheel(){ Game.draft=null; radial.classList.remove('open'); radial.innerHTML=''; pendingRing.visible=false; controls.enabled=true; buildPlanGfx(); renderDock(); updateHint(); }
+addEventListener('keydown',e=>{ if(e.key==='Escape') cancelWheel(); });
+
+// ---------- selection, hint, dock ----------
+function select(a){
+  if(Game.draft) cancelWheel();
+  Game.selActor=a;
+  if(a===kicker){ if(Game.camMode!==0) setView(0); }
+  else if(a && Game.camMode===0) setView(1);
+  renderDock(); updateTags(); updateHint();
+}
+function updateHint(){
+  if(Game.phase!=='plan') return;
+  const a=Game.selActor, d=Game.draft;
+  if(d) setHint(d.actor===kicker?'How should <b>Sue</b> strike it?':`Pick <b>${shortName(d.actor)}</b>'s move`);
+  else if(a===kicker) setHint('👆 Tap where <b>Sue</b> should send the ball');
+  else if(a) setHint(`👆 Tap where <b>${a.name}</b> should run`);
+  else setHint('All set! Tap a player to change their plan, or hit <b>Ready</b>');
+}
+function planSummary(a){
+  if(a===kicker){ const k=Game.plan.kick; return Game.planned.has(a)?`${loftWord(k.loft)} · ${curlWord(k.curl)}`:'tap to aim'; }
+  if(!Game.planned.has(a)) return 'stays put';
+  const p=Game.plan.att[attackers.indexOf(a)]; return `${p.role==='screen'?'🧱 Block':'⚡ Attack'} · ${TIMINGS[p.timing].label}`;
+}
+function renderDock(){
+  const P=Game.phase;
+  if(P==='plan'){
+    dock.innerHTML=OWN.map((a,i)=>`<button class="rp ${Game.selActor===a?'sel':''} ${Game.planned.has(a)?'done':''}" data-i="${i}" title="${a.cfg.blurb}">
+      <span class="av" style="background:${actorColor(a)}">${a.cfg.number}</span><span><span class="nm">${shortName(a)}${Game.planned.has(a)?' ✓':''}</span><span class="st">${planSummary(a)}</span></span></button>`).join('')+
+      `<span class="dsep"></span><button class="btn go" id="ready">Ready ▶</button>`;
+    dock.querySelectorAll('.rp').forEach(b=>b.onclick=()=>{ Sfx.pop(); select(OWN[+b.dataset.i]); });
+    $('#ready').onclick=()=>{ Sfx.pop(); goCpu(); };
+  } else if(P==='cpu'){
+    dock.innerHTML=`<div class="dock-msg">🛡️ CPU: <b id="cpuStyle">thinking</b><span class="thinking" id="think"><i></i><i></i><i></i></span></div>
+      <button class="btn small" id="backPlan">← Change plan</button><button class="btn go" id="play" disabled>▶ Play</button>`;
+    $('#backPlan').onclick=()=>{ Sfx.pop(); clearTimers(); Game.plan.def=null; Game.revealed=0; goPlan(); select(null); };
+    $('#play').onclick=()=>{ Sfx.pop(); play(false); };
+  } else if(P==='sim'){
+    dock.innerHTML=`<button class="btn small" id="skip">Skip ⏭</button>`;
+    $('#skip').onclick=()=>{ const S=Game.sim; let g=0; while(!S.done && g++<5000){ simStep(S); } S.events.length=0; Object.assign(ballState,S.ball); simCamera(S,1); if(S.done) finishSim(); };
+  } else if(P==='result'){
+    const S=Game.sim, R=S.result, info=RESULT_TEXT[R.code];
+    dock.innerHTML=`<div class="dock-msg">${info.e} <b>${info.title}</b><small>${resultLine(S)}</small></div>
+      <button class="btn" id="replay">↺ Replay</button><button class="btn primary" id="next">${R.code==='corner'?'Again →':'Next corner →'}</button>`;
+    $('#replay').onclick=()=>{ Sfx.pop(); play(true); };
+    $('#next').onclick=()=>{ Sfx.pop(); Game.round++; startRound(); };
+  } else dock.innerHTML='';
+}
 
 function updateTags(){
   for(const a of everyone){
-    if(!a.tag){ const off=new V3(); a.tag=addLabel('','tag',()=>a.head(off)); a.tag.owner=a; }
+    if(!a.tag){
+      const off=new V3(); a.tag=addLabel('','tag',()=>a.head(off)); a.tag.owner=a;
+      if(OWN.includes(a)) a.tag.el.firstChild.addEventListener('click',()=>{ if(Game.phase==='plan'){ Sfx.init(); Sfx.pop(); select(a); } });
+    }
     const el=a.tag.el.firstChild;
-    const selected=Game.phase==='runs' && attackers[Game.sel]===a;
-    el.className='tag '+(a.team)+(selected?' sel':'');
+    const own=OWN.includes(a)&&Game.phase==='plan';
+    el.className='tag '+a.team+(own?' pick':'')+(Game.phase==='plan'&&Game.selActor===a?' sel':'');
     el.textContent=`#${a.cfg.number} ${a.name}`+(a===keeper?' 🧤':'');
-    a.tag.visible=['aim','runs','cpu'].includes(Game.phase) && !(Game.phase==='aim' && a.team==='def' && a!==keeper);
+    a.tag.visible=['plan','cpu'].includes(Game.phase);
   }
 }
 
@@ -1251,61 +1313,43 @@ function startRound(){
   const kick=Game.plan?Game.plan.kick:freshKick();
   if(!Game.plan){ solveAim(kick,0.5,7.5); }
   Game.plan={kick,att:[0,1,2].map(()=>({wps:[],timing:1,role:'attack'})),def:null,seed:(Math.random()*1e9)|0};
-  Game.revealed=0;
+  Game.revealed=0; Game.planned=new Set();
   placeAtStarts(); updateScore();
-  goAim(true);
+  goPlan(); Game.camMode=-1; select(kicker);
 }
-function goAim(fly){
-  Game.phase='aim'; setStep('aim'); clearTimers();
-  setTrajVisible(true); updateTraj(); buildPlanGfx(); renderAimPanel(); updateTags();
-  selRing.visible=false;
-  if(fly) setView(0);
-}
-function goRuns(){
-  Game.phase='runs'; setStep('runs'); Game.sel=0;
-  setView(1); refreshRuns();
+function goPlan(){
+  Game.phase='plan'; clearTimers(); controls.enabled=true;
+  setTrajVisible(true); updateTraj(); buildPlanGfx(); renderDock(); updateTags(); updateHint();
 }
 function goCpu(){
-  Game.phase='cpu'; setStep('cpu'); hoverRing.visible=false; selRing.visible=false; updateTags();
+  cancelWheel();
+  Game.phase='cpu'; hoverRing.visible=false; updateTags(); renderDock();
+  setHint('The CPU is setting up its defence…');
+  if(Game.camMode===0) setView(1);
   const r=mulberry32(Game.plan.seed^0x5bd1e995);
-  Game.plan.def=cpuPlan(r,Game.starts,Game.plan.kick); Game.revealed=0;
+  Game.plan.def=cpuPlan(r,Game.starts,Game.plan.kick); Game.revealed=0; buildPlanGfx();
   const D=Game.plan.def;
-  const styleName={man:'Man-to-man marking',mixed:'Mixed: markers + a zone',zonal:'Zonal defending'}[D.style];
-  panel.innerHTML=`<div class="kicker">Step 3 · CPU's turn</div><h2>The defence sets up<span class="thinking" id="think"><i></i><i></i><i></i></span></h2>
-    <p class="hint">They can't see your runs… but Stan is squinting at Sue's run-up.</p>
-    <ul id="cpuList"></ul>
-    <div class="row"><button class="btn go" id="play" disabled>▶ Play the corner!</button></div>
-    <div class="row"><button class="btn small" id="backRuns">← Tweak runs</button></div>`;
-  $('#backRuns').onclick=()=>{ clearTimers(); Game.plan.def=null; Game.revealed=0; Sfx.pop(); Game.phase='runs'; setStep('runs'); refreshRuns(); };
-  $('#play').onclick=()=>{ Sfx.pop(); play(false); };
-  const li=(html)=>{ const e=document.createElement('li'); e.innerHTML=html; $('#cpuList').appendChild(e); Sfx.pop(); };
+  const styleName={man:'man-to-man',mixed:'markers + a zone',zonal:'zonal'}[D.style];
   const lines={mark:t=>pick(r,[`I've got ${t}!`,`Sticking to ${t} like glue.`,`${t}? Easy.`]),zone:z=>pick(r,[`${z[0].toUpperCase()+z.slice(1)} is mine.`,`Guarding ${z}.`,`Nobody gets past me at ${z}.`])};
-  later(500,()=>li(`<span>📋</span><span><span class="who">Tactic:</span> ${styleName}</span>`));
-  defenders.forEach((d,i)=>later(1300+i*900,()=>{
-    const pl=D.defs[i]; Game.revealed=i+1; buildPlanGfx();
-    const txt=pl.type==='mark'?lines.mark(attackers[pl.target].name):lines.zone(pl.zoneName);
-    say(d,txt,'def',2.6);
-    li(`<span>${pl.type==='mark'?'👀':'📍'}</span><span><span class="who">${d.name}</span> — ${pl.type==='mark'?'marks '+attackers[pl.target].name:'zones '+pl.zoneName}</span>`);
+  later(500,()=>{ const s=$('#cpuStyle'); if(s) s.textContent=styleName; Sfx.pop(); });
+  defenders.forEach((d,i)=>later(1100+i*800,()=>{
+    const pl=D.defs[i]; Game.revealed=i+1; buildPlanGfx(); Sfx.pop();
+    say(d,pl.type==='mark'?lines.mark(attackers[pl.target].name):lines.zone(pl.zoneName),'def',2.6);
   }));
-  later(1300+3*900,()=>{
-    const t=D.keeper==='claim'?"I'm coming for everything!":'Staying on my line, thanks.';
-    say(keeper,t,'def',2.6);
-    li(`<span>🧤</span><span><span class="who">${keeper.name}</span> — ${D.keeper==='claim'?'will charge out for crosses':'stays on his line'}</span>`);
-  });
-  later(1300+4*900,()=>{ const b=$('#play'); if(b){ b.disabled=false; b.classList.add('pulse'); } const th=$('#think'); if(th) th.remove(); });
+  later(1100+3*800,()=>{ say(keeper,D.keeper==='claim'?"I'm coming for everything!":'Staying on my line, thanks.','def',2.6); Sfx.pop(); });
+  later(1100+4*800,()=>{ const b=$('#play'); if(b){ b.disabled=false; b.classList.add('pulse'); } const th=$('#think'); if(th) th.remove(); setHint('Defence is ready — hit <b>Play</b>!'); });
 }
 
 function play(isReplay){
-  clearTimers(); hideBanner();
-  Game.phase='sim'; setStep('sim'); Game.replay=isReplay;
-  setTrajVisible(false); clearPlanGfx(); hoverRing.visible=false; selRing.visible=false; updateTags();
+  clearTimers(); hideBanner(); cancelWheel();
+  Game.phase='sim'; Game.replay=isReplay;
+  setTrajVisible(false); clearPlanGfx(); hoverRing.visible=false; updateTags(); renderDock();
+  setHint(isReplay?'↺ Replay':'');
   crowd.target=0.15; confetti.length=0; confMesh.count=0;
   Game.sim=newSim(Game.plan,Game.starts,Game.plan.seed); Game.acc=0;
   camLook.copy(controls.target);
   controls.enabled=false; camTween=null;
   $('#replayTag').style.display=isReplay?'block':'none';
-  panel.innerHTML=`<div class="kicker">${isReplay?'Replay':'Step 4 · Kick-off'}</div><h2>${isReplay?'Watch it again…':'Here we go!'}</h2><div class="row"><button class="btn small" id="skip">Skip ⏭</button></div>`;
-  $('#skip').onclick=()=>{ const S=Game.sim; let g=0; while(!S.done && g++<5000){ simStep(S); } S.events.length=0; };
   if(!isReplay) Sfx.whistle();
   later(400,()=>say(kicker,pick(Math.random,['Here it comes!','One for the scrapbook…','Heads up, lads!']),'att',1.4));
 }
@@ -1353,13 +1397,7 @@ function finishSim(){
     if(R.code==='goal') Game.goals++;
     updateScore();
   }
-  panel.classList.remove('hidden');
-  panel.innerHTML=`<div class="kicker">Corner ${Game.round} · Full time</div>
-    <div class="result-emoji">${info.e}</div><h2>${info.title}</h2><p>${resultLine(S)}</p>
-    <p class="hint">${R.code==='goal'?'Nice planning, gaffer.':'Tip: time the ⏱ on a run to match the ball\'s 🎯 — and try blocking a marker.'}</p>
-    <div class="row"><button class="btn" id="replay">↺ Replay</button><button class="btn primary" id="next">${R.code==='corner'?'Take it again →':'Next corner →'}</button></div>`;
-  $('#replay').onclick=()=>{ Sfx.pop(); play(true); };
-  $('#next').onclick=()=>{ Sfx.pop(); Game.round++; startRound(); };
+  later(600,hideBanner); setHint(''); renderDock();
 }
 
 function handleEvents(S){
@@ -1397,28 +1435,44 @@ function handleEvents(S){
 const ray=new THREE.Raycaster(), ndc=new THREE.Vector2(), groundPlane=new THREE.Plane(new V3(0,1,0),0), _hit=new V3();
 function groundPoint(e){ const r=renderer.domElement.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1); ray.setFromCamera(ndc,camera); return ray.ray.intersectPlane(groundPlane,_hit)?_hit.clone():null; }
 let down=null;
+const _f=new V3(), _h=new V3();
+function toScreen(v){ return {x:(v.x*0.5+0.5)*innerWidth,y:(-v.y*0.5+0.5)*innerHeight,z:v.z}; }
+function pickOwn(e){
+  let best=null,bd=1e9;
+  for(const a of OWN){
+    const f=toScreen(_f.set(a.pos.x,0,a.pos.z).project(camera)), h=toScreen(_h.set(a.pos.x,2.1*a.scale,a.pos.z).project(camera));
+    if(f.z>1) continue;
+    const dx=h.x-f.x, dy=h.y-f.y, L2=dx*dx+dy*dy||1, t=clamp(((e.clientX-f.x)*dx+(e.clientY-f.y)*dy)/L2,0,1);
+    const d=Math.hypot(e.clientX-(f.x+dx*t),e.clientY-(f.y+dy*t)), thr=Math.max(16,Math.sqrt(L2)*0.35);
+    if(d<thr&&d<bd){ bd=d; best=a; }
+  }
+  return best;
+}
 renderer.domElement.addEventListener('pointerdown',e=>{ Sfx.init(); down={x:e.clientX,y:e.clientY,t:performance.now()}; });
 renderer.domElement.addEventListener('pointermove',e=>{
-  if(!(Game.phase==='aim'||Game.phase==='runs')){ hoverRing.visible=false; return; }
-  const p=groundPoint(e); if(!p){ hoverRing.visible=false; return; }
-  hoverRing.visible=true; hoverRing.position.set(p.x,0.05,p.z);
-  hoverRing.material.color.set(Game.phase==='aim'?'#ffc83a':attackers[Game.sel].cfg.color);
+  const cv=renderer.domElement;
+  if(Game.phase!=='plan'||Game.draft){ hoverRing.visible=false; cv.style.cursor=''; return; }
+  if(pickOwn(e)){ hoverRing.visible=false; cv.style.cursor='pointer'; return; }
+  cv.style.cursor=Game.selActor?'crosshair':'';
+  const p=Game.selActor&&groundPoint(e); if(!p){ hoverRing.visible=false; return; }
+  hoverRing.visible=true; hoverRing.position.set(p.x,0.05,p.z); hoverRing.material.color.set(actorColor(Game.selActor));
 });
 renderer.domElement.addEventListener('pointerup',e=>{
   if(!down) return; const moved=Math.hypot(e.clientX-down.x,e.clientY-down.y); const dt=performance.now()-down.t; down=null;
   if(moved>6||dt>600||e.button!==0) return;
+  if(Game.draft){ cancelWheel(); return; }
+  if(Game.phase!=='plan') return;
+  const hit=pickOwn(e); if(hit){ Sfx.pop(); select(hit); return; }
+  if(!Game.selActor){ setHint('👆 Pick a player first — tap them or their name below'); return; }
   const p=groundPoint(e); if(!p) return;
-  const x=clamp(p.x,-33,33), z=clamp(p.z,0.4,34);
-  if(Game.phase==='aim'){ solveAim(Game.plan.kick,x,z); Game.syncAim&&Game.syncAim(); updateTraj(); Sfx.pop(); }
-  else if(Game.phase==='runs'){ const pl=Game.plan.att[Game.sel]; if(pl.wps.length>=2) pl.wps=[]; pl.wps.push({x,z}); Sfx.pop(); refreshRuns(); }
+  openWheel(Game.selActor,{x:clamp(p.x,-33,33),z:clamp(p.z,0.4,34)},e.clientX,e.clientY);
 });
-$('#camBtn').onclick=()=>{ Sfx.init(); if(Game.phase==='sim') return; setView((Game.camMode+1)%VIEWS.length); const t=$('#helpTip'); t.textContent='🎥 '+VIEWS[Game.camMode].name; clearTimeout(t._h); t._h=setTimeout(()=>t.textContent='Drag to look around · scroll to zoom · right-drag to pan',1800); };
+$('#camBtn').onclick=()=>{ Sfx.init(); if(Game.phase==='sim'||Game.draft) return; setView((Game.camMode+1)%VIEWS.length); const prev=hintEl.innerHTML; setHint('🎥 '+VIEWS[Game.camMode].name); setTimeout(()=>{ if(Game.phase==='plan') updateHint(); else setHint(prev); },1400); };
 $('#muteBtn').onclick=()=>{ Sfx.init(); $('#muteBtn').textContent=Sfx.toggle()?'🔇':'🔊'; };
 function fitView(){
-  const W=innerWidth,H=innerHeight;
-  if(W>760){ const P=Math.min(372,W*0.3); camera.aspect=(W+P)/H; camera.setViewOffset(W+P,H,P,0,W,H); }
-  else { const P=Math.min(H*0.3,260); camera.aspect=W/(H+P); camera.setViewOffset(W,H+P,0,P,W,H); }
+  const W=innerWidth,H=innerHeight; camera.aspect=W/H; camera.clearViewOffset();
   camera.updateProjectionMatrix(); renderer.setSize(W,H);
+  if(Game.draft) renderWheel();
 }
 addEventListener('resize',fitView); fitView();
 
@@ -1472,7 +1526,8 @@ function animate(){
   _bp.set(ballState.x,ballState.y,ballState.z);
   for(const a of everyone) updateRig(a,vdt,_bp);
   // selection ring
-  if(Game.phase==='runs'){ const a=attackers[Game.sel]; selRing.visible=true; selRing.position.set(a.pos.x,0.045,a.pos.z); selRing.material.color.set(a.cfg.color); const s=1+Math.sin(time*5)*0.08; selRing.scale.set(s,1,s); }
+  if(Game.phase==='plan'&&Game.selActor){ const a=Game.selActor; selRing.visible=true; selRing.position.set(a.pos.x,0.045,a.pos.z); selRing.material.color.set(actorColor(a)); const s=1+Math.sin(time*5)*0.08; selRing.scale.set(s,1,s); } else selRing.visible=false;
+  if(pendingRing.visible){ const s=1+Math.sin(time*7)*0.12; pendingRing.scale.set(s,1,s); }
   // ambient
   updateCrowd(time,dt); updateConfetti(dt);
   for(const f of world.flags){ const arr=f.flag.geometry.attributes.position.array; for(let i=0;i<arr.length;i+=3){ const x=f.base[i]; arr[i+2]=Math.sin(time*5+x*8)*0.06*x*2; } f.flag.geometry.attributes.position.needsUpdate=true; f.fg.rotation.y=Math.sin(time*0.7)*0.4+0.3; }
@@ -1538,14 +1593,31 @@ camera.position.set(...VIEWS[0].pos); controls.target.set(...VIEWS[0].tgt);
 document.fonts.load('700 40px Fredoka').finally(()=>{
   if(AUTOTEST){ runAutotest(); return; }
   startRound();
-  panel.classList.remove('hidden');
   setTimeout(()=>{ $('#loading').classList.add('gone'); setTimeout(()=>$('#loading').remove(),900); },250);
   animate();
   // debug: ?stage=runs|cpu|sim&view=N
   const qs=new URLSearchParams(location.search), stage=qs.get('stage');
-  if(stage){
-    Game.plan.att[0].wps=[{x:1,z:7}]; Game.plan.att[1].wps=[{x:5,z:5},{x:3.5,z:3.5}]; Game.plan.att[1].timing=0; Game.plan.att[2].wps=[{x:-2,z:6}]; Game.plan.att[2].role='screen';
-    if(stage!=='aim') goRuns();
+  if(stage==='flow'){ // scripted end-to-end check of the planning UI
+    const log=[]; const out=$('#out'); out.style.display='block';
+    addEventListener('error',e=>{ log.push('ERR '+e.message); out.textContent=log.join('\n'); });
+    setTimeout(()=>{ try{
+      const pts=[{x:0.5,z:9},{x:1,z:8},{x:4,z:3.5},{x:-3,z:5}];
+      OWN.forEach((a,i)=>{ select(a); openWheel(a,pts[i],600,400); for(const st of wheelFor(a)){ const o=st.opts(Game.draft); chooseOption(st,o[i%o.length]); } });
+      log.push('planned:'+Game.planned.size+' sel:'+(Game.selActor?Game.selActor.name:'none')+' dock:'+dock.querySelectorAll('.rp.done').length);
+      log.push('plans:'+JSON.stringify(Game.plan.att.map(p=>[p.role,p.timing,p.wps.length]))+' kick:'+JSON.stringify(Game.plan.kick));
+      select(attackers[1]); openWheel(attackers[1],{x:9,z:9},100,100); cancelWheel(); log.push('after cancel wps:'+JSON.stringify(Game.plan.att[1].wps));
+      goCpu();
+      setTimeout(()=>{ log.push('cpu def:'+Game.plan.def.style+' playEnabled:'+!$('#play').disabled); $('#play').click(); $('#skip').click();
+        setTimeout(()=>{ log.push('phase:'+Game.phase+' result:'+Game.sim.result.code+' dockBtns:'+dock.querySelectorAll('button').length);
+          $('#replay').click(); log.push('replay phase:'+Game.phase); $('#skip').click();
+          setTimeout(()=>{ $('#next').click(); log.push('next: phase '+Game.phase+' round '+Game.round+' sel '+Game.selActor.name+' planned '+Game.planned.size); log.push('FLOW OK'); out.textContent=log.join('\n'); },500);
+        },500);
+      },5000);
+    }catch(e){ log.push('EXC '+e.stack); out.textContent=log.join('\n'); } },1200); }
+  if(stage==='wheel'){ const a=OWN[+(qs.get('who')||0)]; select(a); setTimeout(()=>{ camTween=null; const v=VIEWS[a===kicker?0:1]; camera.position.set(...v.pos); controls.target.set(...v.tgt); controls.update(); camera.updateMatrixWorld(); openWheel(a,a===kicker?{x:0.5,z:9}:{x:2,z:6},innerWidth*0.5,innerHeight*0.5); if(qs.get('step')) chooseOption(wheelFor(a)[0],wheelFor(a)[0].opts(Game.draft)[0]); },1500); }
+  else if(stage){
+    Game.plan.att[0]={wps:[{x:1,z:7}],timing:1,role:'attack'}; Game.plan.att[1]={wps:[{x:3.5,z:3.5}],timing:0,role:'attack'}; Game.plan.att[2]={wps:[{x:-2,z:6}],timing:1,role:'screen'};
+    OWN.forEach(a=>Game.planned.add(a)); select(null);
     if(stage==='cpu'||stage==='sim') goCpu();
     if(stage==='sim') setTimeout(()=>{
       if(QS.get('want')){ // search for a seed that produces the wanted result
